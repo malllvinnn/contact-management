@@ -7,12 +7,6 @@ export interface LoginResponseData extends User {
     token: string;
 }
 
-export interface RegisterPayload {
-    username: string;
-    name: string;
-    password?: string;
-}
-
 export interface LoginPayload {
     username: string;
     password?: string;

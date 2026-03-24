@@ -1,8 +1,16 @@
+import { AuthCard } from "@/features/auth/components/AuthCard";
+import { RegisterForm } from "@/features/auth/components/RegisterForm";
+
 const RegisterPage = () => {
     return (
-        <div>
-            <h1>RegisterPage</h1>
-        </div>
+        <>
+            <AuthCard
+                title="Register"
+                descTo="Sudah punya akun?. Silahkan "
+            >
+                <RegisterForm />
+            </AuthCard>
+        </>
     );
 };
 
