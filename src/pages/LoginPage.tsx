@@ -1,8 +1,18 @@
+import { AuthCard } from "@/features/auth/components/AuthCard";
+import { LoginForm } from "@/features/auth/components/LoginForm";
+
 const LoginPage = () => {
     return (
-        <div>
-            <h1>LoginPage</h1>
-        </div>
+        <>
+            <AuthCard
+                title="Login"
+                descTo="Belum punya akun?. Silahkan "
+                to="/auth/register"
+                descLink="Register"
+            >
+                <LoginForm />
+            </AuthCard>
+        </>
     );
 };
 

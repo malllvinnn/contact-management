@@ -1,36 +1,29 @@
-import { FieldGroup, FieldSet } from "@/components/ui/field";
-import { useRegister } from "../auth.hook";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterSchema, type RegisterFormValues } from "../auth.schema";
+import { useLogin } from "../auth.hook";
+import { LoginPayloadSchema, type LoginPayload } from "../auth.schema";
+import { useForm } from "react-hook-form";
 import { InputField } from "@/components/form/InputField";
 import { InputPasswordField } from "@/components/form/InputPaswordField";
 import { ButtonField } from "@/components/form/ButtonField";
+import { FieldGroup, FieldSet } from "@/components/ui/field";
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
 
-    const { mutate, isPending } = useRegister();
+    const { mutate, isPending } = useLogin();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<RegisterFormValues>({
-        resolver: zodResolver(RegisterSchema),
+    } = useForm<LoginPayload>({
+        resolver: zodResolver(LoginPayloadSchema),
         defaultValues: {
             username: "",
-            name: "",
             password: "",
-            confirmPassword: "",
         }
-    });
+    })
 
-    const onSubmit = (values: RegisterFormValues) => {
-
-        const { confirmPassword: _confirmPassword, ...apiPayload } = values;
-
-        mutate(apiPayload);
-    };
+    const onSubmit = (values: LoginPayload) => mutate(values);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -45,14 +38,6 @@ export const RegisterForm = () => {
                         {...register("username")}
                     />
 
-                    {/* input name */}
-                    <InputField
-                        label="Name"
-                        placeholder="Enter Name"
-                        error={errors.name?.message}
-                        {...register("name")}
-                    />
-
                     {/* input password */}
                     <InputPasswordField
                         label="Password"
@@ -61,18 +46,10 @@ export const RegisterForm = () => {
                         {...register("password")}
                     />
 
-                    {/* input confirm password */}
-                    <InputPasswordField
-                        label="Confirm Password"
-                        placeholder="Enter Password"
-                        error={errors.confirmPassword?.message}
-                        {...register("confirmPassword")}
-                    />
-
                     {/* button submit */}
                     <ButtonField
                         isPending={isPending}
-                        label="Register"
+                        label="Login"
                         orientation="responsive"
                         type="submit"
                         className="cursor-pointer"

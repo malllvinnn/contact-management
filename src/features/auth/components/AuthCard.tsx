@@ -5,12 +5,16 @@ interface AuthCardProps {
     title: string;
     descTo: string;
     children: ReactNode;
+    to: string;
+    descLink: string;
 }
 
 export const AuthCard = ({
     title,
     descTo,
-    children
+    to,
+    descLink,
+    children,
 }: AuthCardProps) => {
 
     return (
@@ -21,7 +25,7 @@ export const AuthCard = ({
                     <div>
                         <span>{descTo}</span>
                         <span>
-                            <Link to={"auth/login"}>Login</Link>
+                            <Link to={to}>{descLink}</Link>
                         </span>
                     </div>
                 </div>

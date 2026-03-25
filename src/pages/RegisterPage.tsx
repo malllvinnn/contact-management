@@ -7,6 +7,8 @@ const RegisterPage = () => {
             <AuthCard
                 title="Register"
                 descTo="Sudah punya akun?. Silahkan "
+                to="/auth/login"
+                descLink="Login"
             >
                 <RegisterForm />
             </AuthCard>

@@ -13,5 +13,12 @@ export const RegisterSchema = RegisterPayloadSchema.extend({
     path: ["confirmPassword"],
 });
 
+export const LoginPayloadSchema = z.object({
+    username: z.string().min(2, { error: "Username minimal 2 karakter" }).max(20),
+    password: z.string().min(6, { error: "Password minimal 6 karakter" }).max(100),
+})
+
 export type RegisterPayload = z.infer<typeof RegisterPayloadSchema>;
 export type RegisterFormValues = z.infer<typeof RegisterSchema>;
+
+export type LoginPayload = z.infer<typeof LoginPayloadSchema>;

@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/features/auth/auth.store";
 import axios, { AxiosError } from "axios";
 
 export const api = axios.create({
@@ -28,9 +28,12 @@ api.interceptors.response.use((response) => {
 }, (error: AxiosError) => {
 
     if (error.status === 401) {
-        useAuthStore.getState().clearAuth();
+        const token = useAuthStore.getState().token;
 
-        window.location.href = "/auth/register";
+        if (token) {
+            useAuthStore.getState().clearAuth();
+            window.location.href = "/auth/login";
+        }
     }
 
     return Promise.reject(error);
