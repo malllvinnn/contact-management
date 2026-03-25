@@ -5,30 +5,41 @@ import { createBrowserRouter } from "react-router";
 import RegisterPage from "@/pages/RegisterPage";
 import ContactPage from "@/pages/ContactPage";
 import LoginPage from "@/pages/LoginPage";
+import { AuthGuard } from "@/features/auth/guards/AuthGuard";
+import { GuestGuard } from "@/features/auth/guards/GuestGuard";
 
 export const router = createBrowserRouter([
     {
-        path: "auth",
-        Component: AuthLayout,
+        Component: GuestGuard,
         children: [
             {
-                path: "register",
-                Component: RegisterPage,
-            },
-            {
-                path: "login",
-                Component: LoginPage
+                path: "auth",
+                Component: AuthLayout,
+                children: [
+                    {
+                        path: "register",
+                        Component: RegisterPage,
+                    },
+                    {
+                        path: "login",
+                        Component: LoginPage
+                    }
+                ]
             }
-        ],
+        ]
     },
     {
-        path: "/",
-        Component: MainLayout,
+        Component: AuthGuard,
         children: [
             {
-                index: true,
-                Component: ContactPage,
-            },
-        ],
+                Component: MainLayout,
+                children: [
+                    {
+                        path: "/",
+                        Component: ContactPage,
+                    }
+                ]
+            }
+        ]
     },
 ])

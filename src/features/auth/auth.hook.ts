@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query"
 import { authService } from "./auth.service"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { toast } from "sonner"
 import type { LoginPayload, RegisterPayload } from "./auth.schema"
 import { useAuthStore } from "./auth.store"
@@ -32,6 +32,12 @@ export const useLogin = () => {
 
     const setAuth = useAuthStore((state) => state.setAuth);
     const navigate = useNavigate();
+    const location = useLocation();
+    const fromLocation = (location.state as { from?: Location })?.from;
+
+    const from = fromLocation
+        ? `${fromLocation.pathname}${fromLocation.search}${fromLocation.hash}`
+        : "/";
 
     return useMutation({
 
@@ -42,7 +48,7 @@ export const useLogin = () => {
             const { token, username, name } = response.data;
 
             setAuth(token, { username, name });
-            navigate("/")
+            navigate(from, { replace: true });
         },
 
         onError: (error) => {
