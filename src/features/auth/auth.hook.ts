@@ -2,8 +2,9 @@ import { useMutation } from "@tanstack/react-query"
 import { authService } from "./auth.service"
 import { useNavigate } from "react-router"
 import { toast } from "sonner"
-import axios from "axios"
-import type { RegisterPayload } from "./auth.schema"
+import type { LoginPayload, RegisterPayload } from "./auth.schema"
+import { useAuthStore } from "./auth.store"
+import { errorHookResponse } from "@/lib/utils"
 
 export const useRegister = () => {
 
@@ -22,23 +23,31 @@ export const useRegister = () => {
 
         onError: (error) => {
 
-            if (axios.isAxiosError(error)) {
-
-                const responseData = error.response?.data;
-                let errorMessage = responseData?.message || "Terjadi kesalahan pada server";
-
-                if (responseData?.errors && responseData.errors.length > 0) {
-                    errorMessage = "Data tidak valid, silakan periksa kembali isian Anda.";
-                }
-
-                toast.error(errorMessage);
-            } else if (error instanceof Error) {
-
-                toast.error(error.message);
-            } else {
-
-                toast.error("Terjadi kesalahan yang tidak diketahui");
-            }
+            errorHookResponse(error);
         }
+    })
+}
+
+export const useLogin = () => {
+
+    const setAuth = useAuthStore((state) => state.setAuth);
+    const navigate = useNavigate();
+
+    return useMutation({
+
+        mutationFn: (payload: LoginPayload) => authService.login(payload),
+
+        onSuccess: (response) => {
+
+            const { token, username, name } = response.data;
+
+            setAuth(token, { username, name });
+            navigate("/")
+        },
+
+        onError: (error) => {
+
+            errorHookResponse(error);
+        },
     })
 }
