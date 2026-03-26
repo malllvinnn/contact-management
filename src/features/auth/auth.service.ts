@@ -17,5 +17,12 @@ export const authService = {
         const response = await api.post("/api/users/login", payload);
 
         return response.data;
+    },
+
+    logout: async (): Promise<ApiResponse<string>> => {
+
+        const response = await api.delete("/api/users/current");
+
+        return response.data;
     }
 } 
