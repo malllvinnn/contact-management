@@ -17,7 +17,6 @@ export const useRegister = () => {
         onSuccess: () => {
 
             toast.success("Registrasi berhasil! Silahkan login");
-
             navigate("/auth/login");
         },
 
@@ -55,5 +54,27 @@ export const useLogin = () => {
 
             errorHookResponse(error);
         },
+    })
+}
+
+export const useLogout = () => {
+    const clearAuth = useAuthStore((state) => state.clearAuth);
+    const navigate = useNavigate();
+
+    return useMutation({
+
+        mutationFn: () => authService.logout(),
+
+        onSuccess: () => {
+
+            toast.success("Berhasil logout");
+            clearAuth();
+            navigate("/auth/login", { replace: true });
+        },
+
+        onError: (error) => {
+
+            errorHookResponse(error);
+        }
     })
 }
