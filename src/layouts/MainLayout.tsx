@@ -1,53 +1,49 @@
-import { ButtonField } from "@/components/form/ButtonField";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useLogout } from "@/features/auth/auth.hook";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Loader } from "lucide-react";
 import { Outlet } from "react-router";
 
 export const MainLayout = () => {
 
-    const { mutate, isPending } = useLogout()
-    const { setTheme } = useTheme();
+    const { mutate, isPending } = useLogout();
 
     return (
-        <>
-            <h1>MainLayout</h1>
+        <div className="flex min-h-screen min-w-0 max-w-full flex-col overflow-x-hidden">
+            <header className="sticky top-0 z-50 w-full max-w-full min-w-0 border-b border-border/50 bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/70">
+                <nav
+                    className="
+                        mx-auto flex w-full max-w-full min-w-0
+                        flex-wrap items-center justify-end gap-2 sm:gap-3
+                        px-4 py-3 sm:px-6 md:px-8 lg:px-12 2xl:px-24
+                    "
+                    aria-label="Main navigation"
+                >
 
-            {/* theme toggle button */}
-            <DropdownMenu>
-                <DropdownMenuTrigger render={
-                    <Button variant="outline" size="icon">
-                        <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                        <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-                        <span className="sr-only">Toggle theme</span>
+                    <ThemeToggle />
+
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={isPending}
+                        onClick={() => mutate()}
+                        className="h-9 shrink-0 cursor-pointer text-sm md:h-10 md:text-base"
+                    >
+                        {isPending ? <Loader className="size-4 animate-spin" /> : "Logout"}
                     </Button>
-                } />
-                <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => setTheme("light")}>
-                        Light
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme("dark")}>
-                        Dark
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme("system")}>
-                        System
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+                </nav>
+            </header>
 
-            {/* logout button */}
-            <ButtonField
-                orientation="horizontal"
-                isPending={isPending}
-                label="Logout"
-                onClick={() => mutate()}
-                className="cursor-pointer"
-            />
-            <main>
+            <main className="w-full min-w-0 max-w-full flex-1">
                 <Outlet />
             </main>
-        </>
+
+            <footer className="w-full min-w-0 border-t border-border px-4 py-4 text-center text-sm text-muted-foreground sm:px-6">
+                <span>
+                    &copy; {new Date().getFullYear()} Malfin. All rights reserved.
+                </span>
+            </footer>
+        </div>
     );
 };

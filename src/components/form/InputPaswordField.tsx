@@ -17,13 +17,14 @@ export const InputPasswordField = React.forwardRef<HTMLInputElement, InputPasswo
 
         return (
             <Field>
-                <FieldLabel htmlFor={inputId}>{label}</FieldLabel>
-                <InputGroup>
+                <FieldLabel htmlFor={inputId} className="text-sm md:text-base">{label}</FieldLabel>
+                <InputGroup className="h-9 md:h-10">
                     <InputGroupInput
                         id={inputId}
                         name={name}
                         type={showPassword ? "text" : "password"}
                         ref={ref}
+                        className="text-sm md:text-base"
                         {...props}
                     />
                     <InputGroupAddon align="inline-end">
