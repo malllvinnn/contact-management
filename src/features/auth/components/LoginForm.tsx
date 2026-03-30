@@ -49,10 +49,10 @@ export const LoginForm = () => {
                     {/* button submit */}
                     <ButtonField
                         isPending={isPending}
-                        label="Login"
+                        label="Sign In"
                         orientation="responsive"
                         type="submit"
-                        className="cursor-pointer"
+                        className="cursor-pointer bg-secondary text-foreground hover:bg-red-400 hover:text-amber-50 dark:hover:bg-red-900"
                     />
                 </FieldGroup>
             </FieldSet>

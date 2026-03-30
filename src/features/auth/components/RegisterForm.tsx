@@ -27,7 +27,7 @@ export const RegisterForm = () => {
 
     const onSubmit = (values: RegisterFormValues) => {
 
-        const { confirmPassword: _confirmPassword, ...apiPayload } = values;
+        const { confirmPassword: _, ...apiPayload } = values;
 
         mutate(apiPayload);
     };
@@ -75,7 +75,7 @@ export const RegisterForm = () => {
                         label="Register"
                         orientation="responsive"
                         type="submit"
-                        className="cursor-pointer"
+                        className="cursor-pointer bg-secondary text-foreground hover:bg-red-400 hover:text-amber-50 dark:hover:bg-red-900"
                     />
                 </FieldGroup>
             </FieldSet>

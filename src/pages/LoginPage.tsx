@@ -7,8 +7,9 @@ const LoginPage = () => {
             <AuthCard
                 title="Login"
                 descTo="Belum punya akun?. Silahkan "
+                descFor="Mohon untuk Sign In untuk melanjutkan."
                 to="/auth/register"
-                descLink="Register"
+                descLink="Sign Up"
             >
                 <LoginForm />
             </AuthCard>

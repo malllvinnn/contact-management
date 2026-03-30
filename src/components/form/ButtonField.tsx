@@ -16,6 +16,7 @@ export const ButtonField = React.forwardRef<HTMLButtonElement, ButtonFieldProps>
                 <Button
                     ref={ref}
                     disabled={isPending}
+                    className="h-9 text-sm md:h-10 md:text-base"
                     {...props}
                 >
                     {isPending ? <Loader className="animate-spin" /> : label}
