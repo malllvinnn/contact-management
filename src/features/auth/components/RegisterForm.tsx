@@ -1,4 +1,5 @@
 import { FieldGroup, FieldSet } from "@/components/ui/field";
+import { useEffect } from "react";
 import { useRegister } from "../auth.hook";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,13 +7,16 @@ import { RegisterSchema, type RegisterFormValues } from "../auth.schema";
 import { InputField } from "@/components/form/InputField";
 import { InputPasswordField } from "@/components/form/InputPaswordField";
 import { ButtonField } from "@/components/form/ButtonField";
+import { useAppStore } from "@/stores/app.store";
 
 export const RegisterForm = () => {
 
     const { mutate, isPending } = useRegister();
+    const isOpenToggleForm = useAppStore((s) => s.isOpenToggleForm);
 
     const {
         register,
+        setFocus,
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterFormValues>({
@@ -24,6 +28,12 @@ export const RegisterForm = () => {
             confirmPassword: "",
         }
     });
+
+    useEffect(() => {
+        if (!isOpenToggleForm) return;
+        const id = requestAnimationFrame(() => setFocus("username"));
+        return () => cancelAnimationFrame(id);
+    }, [isOpenToggleForm, setFocus]);
 
     const onSubmit = (values: RegisterFormValues) => {
 

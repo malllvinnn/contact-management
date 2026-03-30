@@ -36,7 +36,7 @@ export const useLogin = () => {
 
     const from = fromLocation
         ? `${fromLocation.pathname}${fromLocation.search}${fromLocation.hash}`
-        : "/";
+        : "/dashboard";
 
     return useMutation({
 
