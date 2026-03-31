@@ -2,10 +2,10 @@
 
 | Meta | Detail |
 |------|--------|
-| **Status** | OPEN |
+| **Status** | CLOSED |
 | **Labels** | `refactor`, `routing` |
 | **Dibuat** | 2026-03-30 |
-| **Ditutup** | — |
+| **Ditutup** | 2026-03-30 |
 
 ## Context
 

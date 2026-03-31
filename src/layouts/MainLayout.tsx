@@ -1,15 +1,12 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Button } from "@/components/ui/button";
-import { useLogout } from "@/features/auth/auth.hook";
-import { Loader } from "lucide-react";
+import { UserMenu } from "@/features/user/components/UserMenu";
 import { Outlet } from "react-router";
 
 export const MainLayout = () => {
 
-    const { mutate, isPending } = useLogout();
-
     return (
         <div className="flex min-h-screen min-w-0 max-w-full flex-col overflow-x-hidden">
+
             <header className="sticky top-0 z-50 w-full max-w-full min-w-0 border-b border-border/50 bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/70">
                 <nav
                     className="
@@ -20,18 +17,11 @@ export const MainLayout = () => {
                     aria-label="Main navigation"
                 >
 
+                    {/* theme toggle */}
                     <ThemeToggle />
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        disabled={isPending}
-                        onClick={() => mutate()}
-                        className="h-9 shrink-0 cursor-pointer text-sm md:h-10 md:text-base"
-                    >
-                        {isPending ? <Loader className="size-4 animate-spin" /> : "Logout"}
-                    </Button>
+                    {/* dropdown menu */}
+                    <UserMenu />
                 </nav>
             </header>
 

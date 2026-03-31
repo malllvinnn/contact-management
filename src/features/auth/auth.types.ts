@@ -14,4 +14,5 @@ export interface AuthState {
     setAuth: (token: string, user: User) => void;
     clearAuth: () => void;
     setHasHydrated: (value: boolean) => void;
+    updateUser: (user: Partial<User>) => void;
 }

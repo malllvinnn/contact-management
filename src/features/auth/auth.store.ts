@@ -11,6 +11,9 @@ export const useAuthStore = create<AuthState>()(
             setAuth: (token, user) => set({ token, user }),
             clearAuth: () => set({ token: null, user: null }),
             setHasHydrated: (value) => set({ hasHydrated: value }),
+            updateUser: (partial) => set((state) => ({
+                user: state.user ? { ...state.user, ...partial } : state.user,
+            })),
         }),
         {
             name: "auth-storage",
