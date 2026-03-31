@@ -14,9 +14,9 @@ export const useRegister = () => {
 
         mutationFn: (payload: RegisterPayload) => authService.register(payload),
 
-        onSuccess: () => {
+        onSuccess: (response) => {
 
-            toast.success("Registrasi berhasil! Silahkan login");
+            toast.success(response.message || "Registrasi berhasil! Silahkan login");
             navigate("/auth/login");
         },
 
@@ -67,7 +67,6 @@ export const useLogout = () => {
 
         onSuccess: () => {
 
-            toast.success("Berhasil logout");
             clearAuth();
             navigate("/auth/login", { replace: true });
         },

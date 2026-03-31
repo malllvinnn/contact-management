@@ -3,11 +3,11 @@ import { MainLayout } from "@/layouts/MainLayout";
 import { createBrowserRouter, Navigate } from "react-router";
 
 import RegisterPage from "@/pages/RegisterPage";
-import ContactPage from "@/pages/ContactPage";
 import LoginPage from "@/pages/LoginPage";
 import { AuthGuard } from "@/features/auth/guards/AuthGuard";
 import { GuestGuard } from "@/features/auth/guards/GuestGuard";
 import ProfilePage from "@/pages/ProfilePage";
+import DashboardPage from "@/pages/DashboardPage";
 
 export const router = createBrowserRouter([
     {
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         path: "dashboard",
-                        Component: ContactPage,
+                        Component: DashboardPage,
                     },
                     {
                         path: "profile",

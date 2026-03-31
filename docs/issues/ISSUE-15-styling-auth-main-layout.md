@@ -2,7 +2,7 @@
 
 | Meta | Detail |
 |------|--------|
-| **Status** | OPEN |
+| **Status** | CLOSED |
 | **Labels** | `enhancement`, `ui`, `responsive design` |
 | **Dibuat** | 2026-03-27 |
 | **Ditutup** | — |

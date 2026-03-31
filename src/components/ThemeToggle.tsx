@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Moon, Sun } from "lucide-react";
+import { Monitor, Moon, Sun } from "lucide-react";
 
 export const ThemeToggle = () => {
 
@@ -18,12 +18,15 @@ export const ThemeToggle = () => {
             } />
             <DropdownMenuContent align="end" className="bg-background/10 backdrop-blur-sm">
                 <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointe">
+                    <Sun />
                     Light
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
+                    <Moon />
                     Dark
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
+                    <Monitor />
                     System
                 </DropdownMenuItem>
             </DropdownMenuContent>
