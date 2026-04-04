@@ -33,11 +33,14 @@ export const ContactForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+
             <DialogHeader className="flex flex-col gap-4 pb-4">
+
                 <DialogTitle className="flex items-center gap-2 text-xl font-bold">
                     <Contact />
                     Create Contact
                 </DialogTitle>
+
                 <FieldSet className="w-full">
                     <FieldGroup>
                         <InputField
@@ -68,7 +71,9 @@ export const ContactForm = () => {
                 </FieldSet>
             </DialogHeader>
             <DialogFooter>
+
                 <DialogClose render={<Button variant="outline" className="cursor-pointer" />}>Cancel</DialogClose>
+
                 <Button type="submit" disabled={isPending} className="bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer">
                     {isPending ? <Loader className="animate-spin" /> : "Create Contact"}
                 </Button>

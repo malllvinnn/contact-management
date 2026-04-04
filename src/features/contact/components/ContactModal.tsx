@@ -10,6 +10,7 @@ export const ContactModal = () => {
 
     return (
         <Dialog open={isOpenCreateModal} onOpenChange={(open) => !open && closeCreateModal()}>
+
             <DialogTrigger render={
                 <AppButton
                     onClick={openCreateModal}
@@ -17,6 +18,7 @@ export const ContactModal = () => {
                     icon={<Plus strokeWidth={3.5} size={32} className="text-foreground" />}
                 />
             } />
+
             <DialogContent>
                 <ContactForm />
             </DialogContent>
