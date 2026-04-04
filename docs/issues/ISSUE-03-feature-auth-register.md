@@ -1,15 +1,8 @@
-# Issue #3 — Implement Feature Auth Register (UI + Business Logic)
-
-| Meta | Detail |
-|------|--------|
-| **Status** | CLOSED |
-| **Labels** | `enhancement`, `auth` |
-| **Dibuat** | 2026-03-24 |
-| **Ditutup** | 2026-03-24 |
+# Issue #2 - Implement Feature Auth Register (UI + Business Logic)
 
 ## Context
 
-Mengimplementasikan fitur autentikasi (Register) untuk aplikasi. Fokus issue ini adalah merancang alur end-to-end mulai dari pembuatan komponen UI, validasi client-side, penanganan business logic, hingga integrasi dengan endpoint API sesuai spesifikasi dokumen backend.
+Mengimplementasikan fitur autentikasi (Register) untuk aplikasi. Fokus *issue* ini adalah merancang alur *end-to-end* mulai dari pembuatan komponen UI, validasi *client-side*, penanganan *business logic*, hingga integrasi dengan *endpoint* API sesuai spesifikasi dokumen *backend*.
 
 ## Goals
 
@@ -48,7 +41,7 @@ Mengimplementasikan fitur autentikasi (Register) untuk aplikasi. Fokus issue ini
 ### 4) Integration
 
 - Implementasikan feature register dari layer feature ke pages + layout.
-- Pastikan alur submit form → request API → handling response berjalan end-to-end.
+- Pastikan alur submit form -> request API -> handling response berjalan end-to-end.
 
 ## Suggested Technical Checklist
 
@@ -64,7 +57,7 @@ Mengimplementasikan fitur autentikasi (Register) untuk aplikasi. Fokus issue ini
 - [x] Implement service register (axios).
 - [x] Implement hooks register (TanStack Query mutation).
 - [x] Integrasikan ke routing/pages + `AuthLayout`.
-- [x] Implementasi `useForm` pada Komponen `RegisterForm`.
+- [x] Implementasi `useForm` pada Komponen `RegisterForm`
 - [x] Tampilkan feedback UI untuk loading, success, dan error.
 - [x] Handle error response API (validation error/general error).
 - [x] Verifikasi blackbox test register.
@@ -81,8 +74,12 @@ Mengimplementasikan fitur autentikasi (Register) untuk aplikasi. Fokus issue ini
 
 ## Blackbox Test Plan
 
-- Input valid → register sukses.
-- Input invalid (email format salah, password lemah, field kosong) → validasi tampil.
-- Email sudah terdaftar → error API tertangani dan tampil di UI.
-- Simulasi jaringan/API error → fallback error message tampil.
+- Input valid -> register sukses.
+- Input invalid (email format salah, password lemah, field kosong) -> validasi tampil.
+- Email sudah terdaftar -> error API tertangani dan tampil di UI.
+- Simulasi jaringan/API error -> fallback error message tampil.
 - Tombol submit/UX saat loading berjalan benar (disable button, indicator).
+
+## Notes
+
+- Prioritas issue ini fokus register terlebih dahulu; struktur komponen diusahakan reusable agar implementasi login lebih cepat di issue berikutnya.
