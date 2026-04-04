@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { ArrowLeft } from "lucide-react";
 import { AppButton } from "./AppButton";
 import { useNavigate } from "react-router";
+import { ContactModal } from "@/features/contact/components/ContactModal";
 
 interface TitleBarProps {
     title: string;
@@ -27,11 +28,11 @@ export const TitleBar = ({
                     onClick={() => navigate(-1)}
                 />
             ) : (
-                <div className="w-8 h-8"></div>
+                <ContactModal />
             )}
 
             <div className="flex items-center gap-2">
-                {Icon && <Icon strokeWidth={3.5} size={32} className="text-secondary" />}
+                {Icon && <Icon strokeWidth={2.5} size={32} className="text-secondary" />}
                 <h1 className="font-bold opacity-50 text-base md:text-lg lg:text-xl 2xl:text-2xl">{title}</h1>
             </div>
         </div>

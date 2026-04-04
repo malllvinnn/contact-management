@@ -7,14 +7,14 @@ export const userService = {
 
     getUser: async (): Promise<ApiResponse<User>> => {
 
-        const response = await api.get("/api/users/current");
+        const response = await api.get("/users/current");
 
         return response.data;
     },
 
     updateUser: async (payload: UpdateUserPayload): Promise<ApiResponse<User>> => {
 
-        const response = await api.patch("/api/users/current", payload);
+        const response = await api.patch("/users/current", payload);
 
         return response.data;
     }

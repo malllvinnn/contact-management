@@ -7,21 +7,21 @@ export const authService = {
 
     register: async (payload: RegisterPayload): Promise<ApiResponse<User>> => {
 
-        const response = await api.post("/api/users", payload);
+        const response = await api.post("/users", payload);
 
         return response.data;
     },
 
     login: async (payload: LoginPayload): Promise<ApiResponse<LoginResponseData>> => {
 
-        const response = await api.post("/api/users/login", payload);
+        const response = await api.post("/users/login", payload);
 
         return response.data;
     },
 
     logout: async (): Promise<ApiResponse<string>> => {
 
-        const response = await api.delete("/api/users/current");
+        const response = await api.delete("/users/current");
 
         return response.data;
     }

@@ -40,13 +40,13 @@ Hal ini membuat hierarki route lebih jelas dan mempersiapkan fondasi untuk penam
 
 ## Suggested Technical Checklist
 
-- [ ] Update `routes/index.tsx`:
+- [x] Update `routes/index.tsx`:
   - Ganti `path: "/"` menjadi `path: "dashboard"` di dalam `MainLayout` children.
   - Tambah route `{ path: "profile", Component: ProfilePage }` sebagai anak `/dashboard` (bisa placeholder dulu).
   - Tambah fallback route `{ path: "/", element: <Navigate to="/dashboard" replace /> }`.
-- [ ] Update default `from` di `useLogin` di `auth.hook.ts` menjadi `/dashboard`.
-- [ ] Verifikasi guard redirect masih ke path yang benar setelah login/logout.
-- [ ] Smoke test semua route (login → `/dashboard`, logout → `/auth/login`, akses langsung `/` → redirect ke `/dashboard`).
+- [x] Update default `from` di `useLogin` di `auth.hook.ts` menjadi `/dashboard`.
+- [x] Verifikasi guard redirect masih ke path yang benar setelah login/logout.
+- [x] Smoke test semua route (login → `/dashboard`, logout → `/auth/login`, akses langsung `/` → redirect ke `/dashboard`).
 
 ## Acceptance Criteria
 

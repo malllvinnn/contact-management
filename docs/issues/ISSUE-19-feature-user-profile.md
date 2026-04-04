@@ -2,10 +2,10 @@
 
 | Meta | Detail |
 |------|--------|
-| **Status** | OPEN |
-| **Labels** | `feature`, `ui`, `api-integration` |
+| **Status** | CLOSED |
+| **Labels** | `ui`, `api-integration` |
 | **Dibuat** | 2026-03-30 |
-| **Ditutup** | — |
+| **Ditutup** | 2026-03-31 |
 | **Depends on** | Issue #17 (routing `/dashboard/profile`) |
 
 ## Context
@@ -78,40 +78,40 @@ src/features/auth/
 ## Suggested Technical Checklist
 
 ### `user.types.ts`
-- [ ] Definisikan type `UpdateUserPayload { name?: string; password?: string }`.
+- [x] Definisikan type `User { name: string; username: string }`. bisa export dari `User auth.types`
 
 ### `user.schema.ts`
-- [ ] Buat Zod schema `updateUserSchema`:
+- [x] Buat Zod schema `UpdateUserPayloadSchema`:
   - `name`: string, min 1 karakter, **opsional** (`.optional()` atau empty string allowed).
   - `password`: string, min 8 karakter, **opsional**.
   - Tambah `.refine()` agar minimal salah satu field harus diisi.
-- [ ] Export `UpdateUserValues` type dari schema.
+- [x] Export `UpdateUserPayload` type dari schema.
 
 ### `user.service.ts`
-- [ ] `getProfile()`: `GET /api/users/current` → return `ApiResponse<User>`.
-- [ ] `updateProfile(payload)`: `PATCH /api/users/current` → return `ApiResponse<User>`.
+- [x] `getProfile()`: `GET /api/users/current` → return `ApiResponse<User>`.
+- [x] `updateProfile(payload)`: `PATCH /api/users/current` → return `ApiResponse<User>`.
 
 ### `user.hook.ts`
-- [ ] `useGetProfile()`: `useQuery` dengan `queryKey: ['profile']`.
-- [ ] `useUpdateProfile()`: `useMutation`:
-  - `onSuccess`: toast sukses + update `name` di `useAuthStore` (via `setAuth` atau action baru) + `invalidateQueries(['profile'])`.
+- [x] `useGetUser()`: `useQuery` dengan `queryKey: ['user']`.
+- [x] `useUpdateUser()`: `useMutation`:
+  - `onSuccess`: toast sukses + update `name` di `useAuthStore` (via `setAuth` atau action baru) + `invalidateQueries(['user'])`.
   - `onError`: gunakan `errorHookResponse(error)`.
 
 ### `auth.store.ts`
-- [ ] Tambah action `updateUser(user: Partial<User>)` untuk update `name` di store tanpa clear token.
+- [x] Tambah action `updateUser(user: Partial<User>)` untuk update `name` di store tanpa clear token.
 
 ### `ProfilePage.tsx`
-- [ ] Fetch data profil via `useGetProfile()` dan pre-fill form.
-- [ ] Form field: **Name** (text), **Password baru** (password — opsional), **Konfirmasi Password** (opsional, harus match).
-- [ ] Field **Username** ditampilkan sebagai readonly/disabled (tidak bisa diubah).
-- [ ] Submit via `useUpdateProfile()`, kirim hanya field yang terisi.
-- [ ] Loading state saat fetch dan submit.
-- [ ] Error handling pada form (pesan di bawah field via `react-hook-form` + `zodResolver`).
-- [ ] Styling: mengikuti design system proyek (shadcn components: `Card`, `Input`, `Button`, `Label`).
+- [x] Fetch data profil via `useGetUser()` dan pre-fill form.
+- [x] Form field: **Name** (text), **Password baru** (password — opsional), **Konfirmasi Password** (opsional, harus match).
+- [x] Field **Username** ditampilkan sebagai readonly/disabled (tidak bisa diubah).
+- [x] Submit via `useUpdateUser()`, kirim hanya field yang terisi.
+- [x] Loading state saat fetch dan submit.
+- [x] Error handling pada form (pesan di bawah field via `react-hook-form` + `zodResolver`).
+- [x] Styling: mengikuti design system proyek (shadcn components: `Card`, `Input`, `Button`, `Label`).
 
 ## Acceptance Criteria
 
-- Halaman `/dashboard/profile` menampilkan data user yang sedang login (username readonly, name terisi otomatis dari API).
+- Halaman `/profile` menampilkan data user yang sedang login (username readonly, name terisi otomatis dari API).
 - User dapat mengubah name dan/atau password.
 - Password bersifat opsional — form valid meski field password kosong (asalkan name diisi minimal 1 karakter, atau sebaliknya).
 - Setelah update sukses, name di navbar/dropdown langsung berubah tanpa re-login.
@@ -122,13 +122,13 @@ src/features/auth/
 
 | # | Skenario | Langkah | Ekspektasi |
 |---|----------|---------|------------|
-| 1 | Tampil data profil | Buka `/dashboard/profile` | Form pre-filled dengan `name` dari API; `username` readonly |
+| 1 | Tampil data profil | Buka `/profile` | Form pre-filled dengan `name` dari API; `username` readonly |
 | 2 | Update name saja | Ubah name, kosongkan password, submit | Sukses; name di navbar berubah; toast muncul |
 | 3 | Update password saja | Kosongkan name, isi password baru (≥8 char), submit | Sukses; toast muncul |
 | 4 | Update keduanya | Isi name baru + password baru, submit | Sukses; name di navbar berubah |
 | 5 | Form kosong semua | Tidak mengubah apapun, klik submit | Validasi gagal — setidaknya 1 field harus diisi |
 | 6 | Password terlalu pendek | Isi password < 8 karakter, submit | Error validasi Zod muncul di bawah field |
-| 7 | Error API | Simulasi 401 (token expired) | Toast error muncul |
+| 7 | Error API | Token expired → hard reload | Redirect otomatis ke `/auth/login` (interceptor 401) |
 
 ## Notes
 
