@@ -1,0 +1,82 @@
+import { Mail, Pencil, Phone } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import type { Contact } from "../contact.types";
+import { DeleteContactButton } from "./DeleteContactButton";
+
+function displayName(contact: Contact): string {
+    const s = [contact.first_name, contact.last_name].filter(Boolean).join(" ").trim();
+    return s || "—";
+}
+
+function initials(contact: Contact): string {
+    const f = contact.first_name?.trim() ?? "";
+    const l = contact.last_name?.trim() ?? "";
+    if (f && l) return `${f[0]!}${l[0]!}`.toUpperCase();
+    if (f.length >= 2) return f.slice(0, 2).toUpperCase();
+    if (f.length === 1) return f.toUpperCase();
+    return "?";
+}
+
+export interface ContactCardProps {
+    contact: Contact;
+    onEdit?: () => void;
+    className?: string;
+}
+
+export const ContactCard = ({ contact, onEdit, className }: ContactCardProps) => {
+
+    const title = displayName(contact);
+
+    return (
+        <article
+            className={cn(
+                "rounded-xl border border-border bg-card p-4 shadow-sm transition-all duration-200",
+                "hover:border-ring/60 hover:shadow-md",
+                className
+            )}
+        >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-stretch">
+                <div className="flex shrink-0 items-center self-stretch sm:min-h-0">
+                    <Avatar size="lg" className="size-12 shrink-0">
+                        <AvatarFallback className="text-sm font-medium">
+                            {initials(contact)}
+                        </AvatarFallback>
+                    </Avatar>
+                </div>
+
+                <div className="min-w-0 flex-1 space-y-1">
+                    <h3 className="truncate text-base font-semibold text-foreground">{title}</h3>
+                    {contact.email ? (
+                        <p className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Mail className="size-3.5 shrink-0" aria-hidden />
+                            <span className="truncate">{contact.email}</span>
+                        </p>
+                    ) : null}
+                    {contact.phone ? (
+                        <p className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Phone className="size-3.5 shrink-0" aria-hidden />
+                            <span>{contact.phone}</span>
+                        </p>
+                    ) : null}
+                </div>
+
+                <div className="flex shrink-0 flex-wrap gap-2 sm:flex-col sm:items-stretch">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="gap-1.5"
+                        disabled={!onEdit}
+                        onClick={() => onEdit?.()}
+                    >
+                        <Pencil className="size-3.5" aria-hidden />
+                        Edit
+                    </Button>
+                    <DeleteContactButton contactId={contact.id} contactName={title} />
+                </div>
+            </div>
+        </article>
+    );
+};
