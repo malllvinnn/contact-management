@@ -8,6 +8,7 @@ import { AuthGuard } from "@/features/auth/guards/AuthGuard";
 import { GuestGuard } from "@/features/auth/guards/GuestGuard";
 import ProfilePage from "@/pages/ProfilePage";
 import DashboardPage from "@/pages/DashboardPage";
+import ContactDetailPage from "@/pages/ContactDetailPage";
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
                     {
                         path: "dashboard",
                         Component: DashboardPage,
+                    },
+                    {
+                        path: "dashboard/contacts/:id",
+                        Component: ContactDetailPage,
                     },
                     {
                         path: "profile",

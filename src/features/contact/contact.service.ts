@@ -17,5 +17,12 @@ export const contactService = {
         const response = await api.get("/contacts", { params });
 
         return response.data;
-    }
+    },
+
+    getContact: async (id: string): Promise<ApiResponse<Contact>> => {
+
+        const response = await api.get(`/contacts/${id}`);
+
+        return response.data;
+    },
 }

@@ -39,3 +39,12 @@ export const useSearchContacts = (params: SearchContactParams) => {
         placeholderData: keepPreviousData,
     })
 }
+
+export const useGetContact = (id: string) => {
+
+    return useQuery({
+        queryKey: ["contacts", id],
+        queryFn: () => contactService.getContact(id),
+        enabled: !!id,
+    })
+}
