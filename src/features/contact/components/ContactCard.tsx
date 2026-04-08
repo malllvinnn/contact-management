@@ -1,4 +1,5 @@
-import { Mail, Pencil, Phone } from "lucide-react";
+import { Mail, Pencil, Phone, Search } from "lucide-react";
+import { Link } from "react-router";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -47,7 +48,18 @@ export const ContactCard = ({ contact, onEdit, className }: ContactCardProps) =>
                 </div>
 
                 <div className="min-w-0 flex-1 space-y-1">
-                    <h3 className="truncate text-base font-semibold text-foreground">{title}</h3>
+                    <h3 className="truncate text-base font-semibold">
+                        <Link
+                            to={`/dashboard/contacts/${contact.id}`}
+                            className="group inline-flex max-w-full min-w-0 items-center gap-1.5 text-foreground hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                            <span className="truncate">{title}</span>
+                            <Search
+                                className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-hover:scale-110 group-hover:text-foreground"
+                                aria-hidden
+                            />
+                        </Link>
+                    </h3>
                     {contact.email ? (
                         <p className="flex items-center gap-2 text-sm text-muted-foreground">
                             <Mail className="size-3.5 shrink-0" aria-hidden />
