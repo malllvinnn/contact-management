@@ -1,5 +1,5 @@
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query"
-import type { CreateContactPayload } from "./contact.schema"
+import type { CreateContactPayload, UpdateContactPayload } from "./contact.schema"
 import { contactService } from "./contact.service"
 import { queryClient } from "@/lib/queryClient"
 import { toast } from "sonner"
@@ -46,5 +46,29 @@ export const useGetContact = (id: string) => {
         queryKey: ["contacts", id],
         queryFn: () => contactService.getContact(id),
         enabled: !!id,
+    })
+}
+
+export const useUpdateContact = (id: string) => {
+
+    const { closeEditModal } = useContactStore();
+
+    return useMutation({
+
+        mutationFn: (payload: UpdateContactPayload) => contactService.updateContact(id, payload),
+
+        onSuccess: (response) => {
+
+            closeEditModal();
+
+            queryClient.invalidateQueries({ queryKey: ["contacts"] });
+            queryClient.invalidateQueries({ queryKey: ["contacts", id] });
+
+            toast.success(response.message || "Contact updated successfully");
+        },
+
+        onError: (error) => {
+            errorHookResponse(error);
+        }
     })
 }

@@ -15,7 +15,14 @@ export interface SearchContactParams {
 }
 
 export type ContactState = {
+    // create state
     isOpenCreateModal: boolean;
     openCreateModal: () => void;
     closeCreateModal: () => void;
+
+    // edit state
+    isOpenEditModal: boolean;
+    selectedContact: Contact | null;
+    openEditModal: (contact: Contact) => void;
+    closeEditModal: () => void;
 };

@@ -1,14 +1,17 @@
 import { InputField } from "@/components/form/InputField";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { User } from "lucide-react";
+import { Pencil, User } from "lucide-react";
 import { useParams } from "react-router";
 import { useGetContact } from "../contact.hook";
+import { useContactStore } from "../contact.store";
 import { ContactContainer } from "./ContactContainer";
 import { ContactDetailFieldSkeleton } from "./ContactDetailFieldSkeleton";
 import { ContactDetailError } from "./ContactDetailError";
 
 export const ContactDetail = () => {
 
+    const openEditModal = useContactStore((s) => s.openEditModal);
     const { id } = useParams();
     const { data, isLoading, isError } = useGetContact(id ?? "");
     const contact = data?.data;
@@ -71,6 +74,18 @@ export const ContactDetail = () => {
     return (
         <ContactContainer title="Contact Detail" icon={User} backButton>
             <div className="page-card">
+                <div className="flex justify-end">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="gap-1.5"
+                        onClick={() => openEditModal(contact)}
+                    >
+                        <Pencil className="size-3.5" aria-hidden />
+                        Edit
+                    </Button>
+                </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <InputField
                         id="contact-first-name"
