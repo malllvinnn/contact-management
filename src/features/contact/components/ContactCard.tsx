@@ -80,7 +80,7 @@ export const ContactCard = ({ contact, className }: ContactCardProps) => {
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="gap-1.5"
+                        className="gap-1.5 border-border/80 ring-1 ring-transparent transition-[box-shadow,ring-color] hover:border-ring/60 hover:ring-ring/30"
                         onClick={() => openEditModal(contact)}
                     >
                         <Pencil className="size-3.5" aria-hidden />
