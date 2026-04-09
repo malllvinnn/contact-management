@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useContactStore } from "../contact.store";
 import type { Contact } from "../contact.types";
 import { DeleteContactButton } from "./DeleteContactButton";
 
@@ -22,12 +23,12 @@ function initials(contact: Contact): string {
 
 export interface ContactCardProps {
     contact: Contact;
-    onEdit?: () => void;
     className?: string;
 }
 
-export const ContactCard = ({ contact, onEdit, className }: ContactCardProps) => {
+export const ContactCard = ({ contact, className }: ContactCardProps) => {
 
+    const openEditModal = useContactStore((s) => s.openEditModal);
     const title = displayName(contact);
 
     return (
@@ -80,8 +81,7 @@ export const ContactCard = ({ contact, onEdit, className }: ContactCardProps) =>
                         variant="outline"
                         size="sm"
                         className="gap-1.5"
-                        disabled={!onEdit}
-                        onClick={() => onEdit?.()}
+                        onClick={() => openEditModal(contact)}
                     >
                         <Pencil className="size-3.5" aria-hidden />
                         Edit
