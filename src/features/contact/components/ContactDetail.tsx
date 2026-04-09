@@ -1,65 +1,66 @@
-import { TitleBar } from "@/components/TitleBar";
 import { InputField } from "@/components/form/InputField";
 import { cn } from "@/lib/utils";
 import { User } from "lucide-react";
 import { useParams } from "react-router";
 import { useGetContact } from "../contact.hook";
+import { ContactContainer } from "./ContactContainer";
+import { ContactDetailFieldSkeleton } from "./ContactDetailFieldSkeleton";
+import { ContactDetailError } from "./ContactDetailError";
 
 export const ContactDetail = () => {
 
     const { id } = useParams();
-
     const { data, isLoading, isError } = useGetContact(id ?? "");
+    const contact = data?.data;
 
     if (!id) {
         return (
-            <div className="flex min-h-0 flex-1 flex-col">
-                <TitleBar title="Contact" icon={User} backButton />
-                <div className="px-6 py-6 md:px-8 lg:px-12 2xl:px-24">
-                    <p className="text-sm text-destructive" role="alert">
-                        Contact not found
-                    </p>
+            <ContactContainer title="Contact" icon={User} backButton>
+                <div className="page-card">
+                    <ContactDetailError message="Contact not found" />
                 </div>
-            </div>
+            </ContactContainer>
         );
     }
 
     if (isLoading) {
         return (
-            <div className="flex min-h-0 flex-1 flex-col">
-                <TitleBar title="Contact" icon={User} backButton />
-                <div className="px-6 py-6 md:px-8 lg:px-12 2xl:px-24">
-                    <p className="text-sm text-muted-foreground">Loading...</p>
+            <ContactContainer title="Contact Detail" icon={User} backButton>
+                <div
+                    className="page-card"
+                    aria-busy="true"
+                    aria-label="Memuat detail kontak"
+                >
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <ContactDetailFieldSkeleton />
+                        <ContactDetailFieldSkeleton />
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                        <ContactDetailFieldSkeleton />
+                        <ContactDetailFieldSkeleton />
+                    </div>
                 </div>
-            </div>
+            </ContactContainer>
         );
     }
 
     if (isError) {
         return (
-            <div className="flex min-h-0 flex-1 flex-col">
-                <TitleBar title="Contact" icon={User} backButton />
-                <div className="px-6 py-6 md:px-8 lg:px-12 2xl:px-24">
-                    <p className="text-sm text-destructive" role="alert">
-                        Contact not found
-                    </p>
+            <ContactContainer title="Contact" icon={User} backButton>
+                <div className="page-card">
+                    <ContactDetailError message="Contact not found" />
                 </div>
-            </div>
+            </ContactContainer>
         );
     }
 
-    const contact = data?.data;
-
     if (!contact) {
         return (
-            <div className="flex min-h-0 flex-1 flex-col">
-                <TitleBar title="Contact" icon={User} backButton />
-                <div className="px-6 py-6 md:px-8 lg:px-12 2xl:px-24">
-                    <p className="text-sm text-destructive" role="alert">
-                        Contact not found
-                    </p>
+            <ContactContainer title="Contact" icon={User} backButton>
+                <div className="page-card">
+                    <ContactDetailError message="Contact not found" />
                 </div>
-            </div>
+            </ContactContainer>
         );
     }
 
@@ -68,11 +69,9 @@ export const ContactDetail = () => {
     );
 
     return (
-        <div className="flex min-h-0 flex-1 flex-col">
-            <TitleBar title="Contact Detail" icon={User} backButton />
-
-            <div className="flex min-h-0 flex-1 flex-col gap-6 px-6 py-6 md:px-8 lg:px-12 2xl:px-24">
-                <div className="grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-2">
+        <ContactContainer title="Contact Detail" icon={User} backButton>
+            <div className="page-card">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <InputField
                         id="contact-first-name"
                         name="first_name"
@@ -93,7 +92,7 @@ export const ContactDetail = () => {
                     />
                 </div>
 
-                <div className="grid max-w-xl grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     <InputField
                         id="contact-email"
                         name="email"
@@ -118,6 +117,6 @@ export const ContactDetail = () => {
                     />
                 </div>
             </div>
-        </div>
+        </ContactContainer>
     );
 };

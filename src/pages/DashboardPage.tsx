@@ -1,4 +1,3 @@
-import { TitleBar } from "@/components/TitleBar";
 import { ContactCard } from "@/features/contact/components/ContactCard";
 import { ContactCardSkeleton } from "@/features/contact/components/ContactCardSkeleton";
 import { useSearchContacts } from "@/features/contact/contact.hook";
@@ -17,6 +16,7 @@ import { buildPaginationItems } from "@/lib/pagination";
 import { Home, Mail, Phone, Search, UserX, Users } from "lucide-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { FilterInput } from "@/features/contact/components/FilterInput";
+import { ContactContainer } from "@/features/contact/components/ContactContainer";
 
 const SEARCH_DEBOUNCE_MS = 300;
 const CONTACTS_PAGE_SIZE = 10;
@@ -183,45 +183,40 @@ const DashboardPage = () => {
     }
 
     return (
-        <div className="flex min-h-0 flex-1 flex-col">
-            <TitleBar title="Dashboard" icon={Home} />
+        <ContactContainer title="Dashboard" icon={Home}>
+            <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3 bg-card p-4 rounded-lg shadow-sm border border-border">
+                <FilterInput
+                    icon={Search}
+                    placeholder="Nama (depan / belakang)…"
+                    value={nameInput}
+                    onChange={setNameInput}
+                    clearLabel="Hapus filter nama"
+                    inputMode="search"
+                />
 
-            <div className="flex min-h-0 flex-1 flex-col px-6 py-6 md:px-8 lg:px-12 2xl:px-24">
+                <FilterInput
+                    icon={Mail}
+                    placeholder="Email…"
+                    value={emailInput}
+                    onChange={setEmailInput}
+                    clearLabel="Hapus filter email"
+                    inputMode="email"
+                />
 
-                <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3 bg-card p-4 rounded-lg shadow-sm border border-border">
-                    <FilterInput
-                        icon={Search}
-                        placeholder="Nama (depan / belakang)…"
-                        value={nameInput}
-                        onChange={setNameInput}
-                        clearLabel="Hapus filter nama"
-                        inputMode="search"
-                    />
-
-                    <FilterInput
-                        icon={Mail}
-                        placeholder="Email…"
-                        value={emailInput}
-                        onChange={setEmailInput}
-                        clearLabel="Hapus filter email"
-                        inputMode="email"
-                    />
-
-                    <FilterInput
-                        icon={Phone}
-                        placeholder="Telepon…"
-                        value={phoneInput}
-                        onChange={setPhoneInput}
-                        clearLabel="Hapus filter telepon"
-                        inputMode="tel"
-                    />
-                </div>
-
-                <div className="flex min-h-0 flex-1 flex-col gap-4">
-                    {listSection}
-                </div>
+                <FilterInput
+                    icon={Phone}
+                    placeholder="Telepon…"
+                    value={phoneInput}
+                    onChange={setPhoneInput}
+                    clearLabel="Hapus filter telepon"
+                    inputMode="tel"
+                />
             </div>
-        </div>
+
+            <div className="flex min-h-0 flex-1 flex-col gap-4">
+                {listSection}
+            </div>
+        </ContactContainer>
     );
 };
 
