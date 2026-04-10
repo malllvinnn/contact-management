@@ -1,17 +1,17 @@
 import { InputField } from "@/components/form/InputField";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Pencil, User } from "lucide-react";
-import { useParams } from "react-router";
+import { User } from "lucide-react";
+import { useNavigate, useParams } from "react-router";
 import { useGetContact } from "../contact.hook";
-import { useContactStore } from "../contact.store";
 import { ContactContainer } from "./ContactContainer";
 import { ContactDetailFieldSkeleton } from "./ContactDetailFieldSkeleton";
 import { ContactDetailError } from "./ContactDetailError";
+import { DeleteContactButton } from "./DeleteContactButton";
+import { EditContactButton } from "./EditContactButton";
 
 export const ContactDetail = () => {
 
-    const openEditModal = useContactStore((s) => s.openEditModal);
+    const navigate = useNavigate();
     const { id } = useParams();
     const { data, isLoading, isError } = useGetContact(id ?? "");
     const contact = data?.data;
@@ -71,20 +71,20 @@ export const ContactDetail = () => {
         "h-9 cursor-default bg-muted/40 text-sm md:h-10 md:text-base"
     );
 
+    const displayName =
+        [contact.first_name, contact.last_name].filter(Boolean).join(" ").trim() ||
+        "—";
+
     return (
         <ContactContainer title="Contact Detail" icon={User} backButton>
             <div className="page-card">
-                <div className="flex justify-end">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="gap-1.5 border-border/80 ring-1 ring-transparent transition-[box-shadow,ring-color] hover:border-ring/60 hover:ring-ring/30"
-                        onClick={() => openEditModal(contact)}
-                    >
-                        <Pencil className="size-3.5" aria-hidden />
-                        Edit
-                    </Button>
+                <div className="flex flex-wrap justify-end gap-2">
+                    <EditContactButton contact={contact} />
+                    <DeleteContactButton
+                        contactId={contact.id}
+                        contactName={displayName}
+                        afterDelete={() => navigate("/dashboard")}
+                    />
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <InputField

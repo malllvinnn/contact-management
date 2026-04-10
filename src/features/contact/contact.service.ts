@@ -32,4 +32,11 @@ export const contactService = {
 
         return response.data;
     },
+
+    removeContact: async (id: string): Promise<ApiResponse<string>> => {
+
+        const response = await api.delete(`/contacts/${id}`);
+
+        return response.data;
+    }
 }
