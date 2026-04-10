@@ -1,11 +1,10 @@
-import { Mail, Pencil, Phone, Search } from "lucide-react";
+import { Mail, Phone, Search } from "lucide-react";
 import { Link } from "react-router";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useContactStore } from "../contact.store";
 import type { Contact } from "../contact.types";
 import { DeleteContactButton } from "./DeleteContactButton";
+import { EditContactButton } from "./EditContactButton";
 
 function displayName(contact: Contact): string {
     const s = [contact.first_name, contact.last_name].filter(Boolean).join(" ").trim();
@@ -28,7 +27,6 @@ export interface ContactCardProps {
 
 export const ContactCard = ({ contact, className }: ContactCardProps) => {
 
-    const openEditModal = useContactStore((s) => s.openEditModal);
     const title = displayName(contact);
 
     return (
@@ -76,16 +74,8 @@ export const ContactCard = ({ contact, className }: ContactCardProps) => {
                 </div>
 
                 <div className="flex shrink-0 flex-wrap gap-2 sm:flex-col sm:items-stretch">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="gap-1.5 border-border/80 ring-1 ring-transparent transition-[box-shadow,ring-color] hover:border-ring/60 hover:ring-ring/30"
-                        onClick={() => openEditModal(contact)}
-                    >
-                        <Pencil className="size-3.5" aria-hidden />
-                        Edit
-                    </Button>
+
+                    <EditContactButton contact={contact} />
                     <DeleteContactButton contactId={contact.id} contactName={title} />
                 </div>
             </div>

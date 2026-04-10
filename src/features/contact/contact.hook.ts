@@ -62,9 +62,26 @@ export const useUpdateContact = (id: string) => {
             closeEditModal();
 
             queryClient.invalidateQueries({ queryKey: ["contacts"] });
-            queryClient.invalidateQueries({ queryKey: ["contacts", id] });
 
             toast.success(response.message || "Contact updated successfully");
+        },
+
+        onError: (error) => {
+            errorHookResponse(error);
+        }
+    })
+}
+
+export const useRemoveContact = (id: string) => {
+
+    return useMutation({
+
+        mutationFn: () => contactService.removeContact(id),
+
+        onSuccess: (response) => {
+            queryClient.invalidateQueries({ queryKey: ["contacts"] });
+
+            toast.success(response.message || "Contact removed successfully");
         },
 
         onError: (error) => {
