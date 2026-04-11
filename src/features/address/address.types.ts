@@ -6,3 +6,9 @@ export type Address = {
     country: string;
     postal_code: string;
 };
+
+export type AddressState = {
+    isOpenCreateModal: boolean;
+    openCreateModal: () => void;
+    closeCreateModal: () => void;
+};
