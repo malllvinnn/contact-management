@@ -20,7 +20,7 @@ export const ContactDetail = () => {
     if (!id) {
         return (
             <ContactContainer title="Contact" icon={User} backButton>
-                <div className="page-card">
+                <div className="page-card md:max-w-none">
                     <ContactDetailError message="Contact not found" />
                 </div>
             </ContactContainer>
@@ -31,7 +31,7 @@ export const ContactDetail = () => {
         return (
             <ContactContainer title="Contact Detail" icon={User} backButton>
                 <div
-                    className="page-card"
+                    className="page-card md:max-w-none"
                     aria-busy="true"
                     aria-label="Memuat detail kontak"
                 >
@@ -51,7 +51,7 @@ export const ContactDetail = () => {
     if (isError) {
         return (
             <ContactContainer title="Contact" icon={User} backButton>
-                <div className="page-card">
+                <div className="page-card md:max-w-none">
                     <ContactDetailError message="Contact not found" />
                 </div>
             </ContactContainer>
@@ -61,7 +61,7 @@ export const ContactDetail = () => {
     if (!contact) {
         return (
             <ContactContainer title="Contact" icon={User} backButton>
-                <div className="page-card">
+                <div className="page-card md:max-w-none">
                     <ContactDetailError message="Contact not found" />
                 </div>
             </ContactContainer>
@@ -78,62 +78,67 @@ export const ContactDetail = () => {
 
     return (
         <ContactContainer title="Contact Detail" icon={User} backButton>
-            <div className="page-card">
-                <div className="flex flex-wrap justify-end gap-2">
-                    <EditContactButton contact={contact} />
-                    <DeleteContactButton
-                        contactId={contact.id}
-                        contactName={displayName}
-                        afterDelete={() => navigate("/dashboard")}
-                    />
-                </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <InputField
-                        id="contact-first-name"
-                        name="first_name"
-                        label="First Name"
-                        readOnly
-                        tabIndex={-1}
-                        value={contact.first_name || "—"}
-                        className={readOnlyInputClass}
-                    />
-                    <InputField
-                        id="contact-last-name"
-                        name="last_name"
-                        label="Last Name"
-                        readOnly
-                        tabIndex={-1}
-                        value={contact.last_name || "—"}
-                        className={readOnlyInputClass}
-                    />
-                </div>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+                <div className="page-card md:max-w-none lg:flex-1">
+                    <div className="flex flex-wrap justify-end gap-2">
+                        <EditContactButton contact={contact} />
+                        <DeleteContactButton
+                            contactId={contact.id}
+                            contactName={displayName}
+                            afterDelete={() => navigate("/dashboard")}
+                        />
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <InputField
+                            id="contact-first-name"
+                            name="first_name"
+                            label="First Name"
+                            readOnly
+                            tabIndex={-1}
+                            value={contact.first_name || "—"}
+                            className={readOnlyInputClass}
+                        />
+                        <InputField
+                            id="contact-last-name"
+                            name="last_name"
+                            label="Last Name"
+                            readOnly
+                            tabIndex={-1}
+                            value={contact.last_name || "—"}
+                            className={readOnlyInputClass}
+                        />
+                    </div>
 
-                <div className="grid grid-cols-1 gap-4">
-                    <InputField
-                        id="contact-email"
-                        name="email"
-                        label="Email"
-                        readOnly
-                        tabIndex={-1}
-                        type="email"
-                        autoComplete="off"
-                        value={contact.email || "—"}
-                        className={readOnlyInputClass}
-                    />
-                    <InputField
-                        id="contact-phone"
-                        name="phone"
-                        label="Phone"
-                        readOnly
-                        tabIndex={-1}
-                        type="tel"
-                        autoComplete="off"
-                        value={contact.phone || "—"}
-                        className={readOnlyInputClass}
-                    />
+                    <div className="grid grid-cols-1 gap-4">
+                        <InputField
+                            id="contact-email"
+                            name="email"
+                            label="Email"
+                            readOnly
+                            tabIndex={-1}
+                            type="email"
+                            autoComplete="off"
+                            value={contact.email || "—"}
+                            className={readOnlyInputClass}
+                        />
+                        <InputField
+                            id="contact-phone"
+                            name="phone"
+                            label="Phone"
+                            readOnly
+                            tabIndex={-1}
+                            type="tel"
+                            autoComplete="off"
+                            value={contact.phone || "—"}
+                            className={readOnlyInputClass}
+                        />
+                    </div>
                 </div>
+                <AddressSection
+                    contactId={contact.id}
+                    className="md:max-w-none lg:flex-1"
+                />
             </div>
-            <AddressSection contactId={contact.id} />
         </ContactContainer>
     );
 };
