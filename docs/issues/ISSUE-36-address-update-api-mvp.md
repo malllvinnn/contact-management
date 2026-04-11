@@ -10,13 +10,13 @@
 
 ## Context
 
-User perlu bisa **mengedit alamat yang sudah ada**. Issue ini mengimplementasikan endpoint `PUT /api/users/contacts/:idContact/addresses/:idAddress` beserta form edit MVP yang memanfaatkan kembali `AddressForm` dari Issue #33 dengan mode `'edit'` dan pre-fill data dari `useGetAddress` (Issue #35).
+User perlu bisa **mengedit alamat yang sudah ada**. Issue ini mengimplementasikan endpoint `PUT /api/contacts/:idContact/addresses/:idAddress` beserta form edit MVP yang memanfaatkan kembali `AddressForm` dari Issue #33 dengan mode `'edit'` dan pre-fill data dari `useGetAddress` (Issue #35).
 
 Pola ini identik dengan `useUpdateContact` + `ContactForm` mode edit di Issue #25.
 
 ## Goals
 
-- Implementasi `PUT /api/users/contacts/:idContact/addresses/:idAddress`.
+- Implementasi `PUT /api/contacts/:idContact/addresses/:idAddress`.
 - Tambah hook `useUpdateAddress(contactId, addressId)` menggunakan `useMutation`.
 - Tambah `UpdateAddressSchema` ke `address.schema.ts`.
 - Extend `address.store.ts` dengan state modal edit.
@@ -25,7 +25,7 @@ Pola ini identik dengan `useUpdateContact` + `ContactForm` mode edit di Issue #2
 
 ## API Reference
 
-### PUT /api/users/contacts/:idContact/addresses/:idAddress
+### PUT /api/contacts/:idContact/addresses/:idAddress
 
 **Request Body:**
 ```json

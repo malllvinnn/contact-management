@@ -10,18 +10,18 @@
 
 ## Context
 
-Endpoint `GET /api/users/contacts/:idContact/addresses/:idAddress` digunakan untuk mengambil data satu alamat berdasarkan ID. Hook `useGetAddress` yang dibuat di issue ini akan digunakan oleh **Issue #36 (Update Address)** untuk pre-fill form edit — pola identik dengan `useGetContact` yang digunakan oleh `useUpdateContact`.
+Endpoint `GET /api/contacts/:idContact/addresses/:idAddress` digunakan untuk mengambil data satu alamat berdasarkan ID. Hook `useGetAddress` yang dibuat di issue ini akan digunakan oleh **Issue #36 (Update Address)** untuk pre-fill form edit — pola identik dengan `useGetContact` yang digunakan oleh `useUpdateContact`.
 
 Issue ini **murni layer service + hook** — tidak ada UI baru karena tidak ada halaman Address Detail terpisah. Alamat ditampilkan inline di `AddressSection` menggunakan data dari list (`useListAddresses`).
 
 ## Goals
 
-- Implementasi `GET /api/users/contacts/:idContact/addresses/:idAddress`.
+- Implementasi `GET /api/contacts/:idContact/addresses/:idAddress`.
 - Tambah hook `useGetAddress(contactId, addressId)` menggunakan `useQuery`.
 
 ## API Reference
 
-### GET /api/users/contacts/:idContact/addresses/:idAddress
+### GET /api/contacts/:idContact/addresses/:idAddress
 
 **Response 200:**
 ```json

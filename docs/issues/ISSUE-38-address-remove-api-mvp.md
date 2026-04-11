@@ -10,20 +10,20 @@
 
 ## Context
 
-User perlu bisa **menghapus alamat** dari sebuah kontak. Issue ini mengimplementasikan endpoint `DELETE /api/users/contacts/:idContact/addresses/:idAddress` dengan konfirmasi minimal MVP (`window.confirm`) sebelum request dikirim.
+User perlu bisa **menghapus alamat** dari sebuah kontak. Issue ini mengimplementasikan endpoint `DELETE /api/contacts/:idContact/addresses/:idAddress` dengan konfirmasi minimal MVP (`window.confirm`) sebelum request dikirim.
 
 Aksi delete bersifat destruktif — konfirmasi proper dengan `AlertDialog` shadcn dikerjakan di Issue #39.
 
 ## Goals
 
-- Implementasi `DELETE /api/users/contacts/:idContact/addresses/:idAddress`.
+- Implementasi `DELETE /api/contacts/:idContact/addresses/:idAddress`.
 - Tambah hook `useRemoveAddress(contactId)` menggunakan `useMutation`.
 - Tambah tombol "Hapus" di `AddressCard` dengan konfirmasi `window.confirm` (MVP).
 - Setelah remove sukses, invalidate query list alamat.
 
 ## API Reference
 
-### DELETE /api/users/contacts/:idContact/addresses/:idAddress
+### DELETE /api/contacts/:idContact/addresses/:idAddress
 
 **Response 200:**
 ```json

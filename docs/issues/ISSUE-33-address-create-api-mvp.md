@@ -10,7 +10,7 @@
 
 ## Context
 
-Setelah list alamat bisa ditampilkan (Issue #31), user perlu bisa **menambah alamat baru** untuk kontak. Issue ini mengimplementasikan endpoint `POST /api/users/contacts/:idContact/addresses` beserta form input alamat (MVP).
+Setelah list alamat bisa ditampilkan (Issue #31), user perlu bisa **menambah alamat baru** untuk kontak. Issue ini mengimplementasikan endpoint `POST /api/contacts/:idContact/addresses` beserta form input alamat (MVP).
 
 Operasi create membutuhkan:
 - `address.schema.ts` (Zod schema pertama kali dibuat di issue ini).
@@ -19,7 +19,7 @@ Operasi create membutuhkan:
 
 ## Goals
 
-- Implementasi `POST /api/users/contacts/:idContact/addresses`.
+- Implementasi `POST /api/contacts/:idContact/addresses`.
 - Tambah hook `useCreateAddress(contactId)` menggunakan `useMutation`.
 - Buat `address.schema.ts` dengan `CreateAddressSchema`.
 - Buat `address.store.ts` dengan state modal create.
@@ -28,7 +28,7 @@ Operasi create membutuhkan:
 
 ## API Reference
 
-### POST /api/users/contacts/:idContact/addresses
+### POST /api/contacts/:idContact/addresses
 
 **Request Body:**
 ```json

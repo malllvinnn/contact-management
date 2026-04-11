@@ -10,7 +10,7 @@
 
 ## Context
 
-Address adalah resource yang nested di bawah contact: `/api/users/contacts/:idContact/addresses`. Issue ini adalah **entry point** feature address — menyiapkan seluruh struktur feature directory `src/features/address/` sekaligus mengimplementasikan endpoint **List Address** sebagai fondasi tampilan.
+Address adalah resource yang nested di bawah contact: `/api/contacts/:idContact/addresses`. Issue ini adalah **entry point** feature address — menyiapkan seluruh struktur feature directory `src/features/address/` sekaligus mengimplementasikan endpoint **List Address** sebagai fondasi tampilan.
 
 Feature address dibuat terpisah dari `src/features/contact/` karena contact sudah memiliki banyak file. Semua operasi address selanjutnya (Create, Get, Update, Remove) akan membangun di atas fondasi yang dibuat di issue ini.
 
@@ -19,13 +19,13 @@ List alamat ditampilkan sebagai **section terpisah di bawah card kontak** pada h
 ## Goals
 
 - Setup feature directory `src/features/address/` dengan file foundational.
-- Implementasi `GET /api/users/contacts/:idContact/addresses` untuk mengambil semua alamat sebuah kontak.
+- Implementasi `GET /api/contacts/:idContact/addresses` untuk mengambil semua alamat sebuah kontak.
 - Tambah hook `useListAddresses(contactId)` menggunakan `useQuery`.
 - Tampilkan list alamat secara minimal (MVP) di `ContactDetail`.
 
 ## API Reference
 
-### GET /api/users/contacts/:idContact/addresses
+### GET /api/contacts/:idContact/addresses
 
 **Response 200:**
 ```json
