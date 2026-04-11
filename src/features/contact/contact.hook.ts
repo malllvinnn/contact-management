@@ -72,11 +72,11 @@ export const useUpdateContact = (id: string) => {
     })
 }
 
-export const useRemoveContact = (id: string) => {
+export const useRemoveContact = () => {
 
     return useMutation({
 
-        mutationFn: () => contactService.removeContact(id),
+        mutationFn: (id: string) => contactService.removeContact(id),
 
         onSuccess: (response) => {
             queryClient.invalidateQueries({ queryKey: ["contacts"] });
