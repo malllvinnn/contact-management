@@ -8,6 +8,7 @@ import { ContactDetailFieldSkeleton } from "./ContactDetailFieldSkeleton";
 import { ContactDetailError } from "./ContactDetailError";
 import { DeleteContactButton } from "./DeleteContactButton";
 import { EditContactButton } from "./EditContactButton";
+import { AddressSection } from "@/features/address/components/AddressSection";
 
 export const ContactDetail = () => {
 
@@ -132,6 +133,7 @@ export const ContactDetail = () => {
                     />
                 </div>
             </div>
+            <AddressSection contactId={contact.id} />
         </ContactContainer>
     );
 };
