@@ -1,10 +1,4 @@
 <p align="center">
-  <a href="https://malv-store.my.id" target="_blank">
-    <img src="public/images/chibi.png" width="100" alt="Malvin Logo" />
-  </a>
-</p>
-
-<p align="center">
   <img src="https://img.shields.io/badge/author-Muhammad%20Malfin-blueviolet" />
   <img src="https://img.shields.io/badge/language-TypeScript-007acc" />
   <img src="https://img.shields.io/badge/framework-React_19-61DAFB" />
