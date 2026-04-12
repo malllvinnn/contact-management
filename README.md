@@ -100,7 +100,7 @@ cp .env.example .env
 ```
 
 ```env
-VITE_API_BASE_URL=https://api-contact-management.malfin.xyz/api
+VITE_API_BASE_URL=your_api_base_url_here
 ```
 
 | Variable | Description | Default |
