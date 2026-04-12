@@ -3,7 +3,9 @@ import { ButtonField } from "@/components/form/ButtonField";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAddressSchema, type CreateAddressPayload } from "../address.schema";
-import { useCreateAddress } from "../address.hook";
+import { useCreateAddress, useUpdateAddress } from "../address.hook";
+import type { Address } from "../address.types";
+import { useEffect } from "react";
 
 const emptyValues: CreateAddressPayload = {
     street: "",
@@ -15,11 +17,17 @@ const emptyValues: CreateAddressPayload = {
 
 interface AddressFormProps {
     contactId: string;
+    mode?: "create" | "edit";
+    defaultValues?: Address;
+    addressId?: string;
 }
 
-export const AddressForm = ({ contactId }: AddressFormProps) => {
+export const AddressForm = ({ contactId, mode = "create", defaultValues, addressId }: AddressFormProps) => {
 
-    const { mutate, isPending } = useCreateAddress(contactId);
+    const { mutate: mutateCreate, isPending: isPendingCreate } = useCreateAddress(contactId);
+    const { mutate: mutateUpdate, isPending: isPendingUpdate } = useUpdateAddress(contactId, addressId ?? "");
+
+    const isPending = mode === "create" ? isPendingCreate : isPendingUpdate;
 
     const {
         register,
@@ -31,10 +39,25 @@ export const AddressForm = ({ contactId }: AddressFormProps) => {
         defaultValues: emptyValues,
     });
 
-    const onSubmit = (values: CreateAddressPayload) => {
-        mutate(values, {
-            onSuccess: () => reset(emptyValues),
+    useEffect(() => {
+        if (mode !== "edit" || !defaultValues) return;
+        reset({
+            street: defaultValues.street ?? "",
+            city: defaultValues.city ?? "",
+            province: defaultValues.province ?? "",
+            country: defaultValues.country,
+            postal_code: defaultValues.postal_code,
         });
+    }, [mode, defaultValues, reset]);
+
+    const onSubmit = (values: CreateAddressPayload) => {
+        if (mode === "create") {
+            mutateCreate(values, {
+                onSuccess: () => reset(emptyValues),
+            });
+            return;
+        }
+        mutateUpdate(values);
     };
 
     return (
@@ -84,7 +107,7 @@ export const AddressForm = ({ contactId }: AddressFormProps) => {
                 <ButtonField
                     type="submit"
                     isPending={isPending}
-                    label="Simpan Alamat"
+                    label={mode === "create" ? "Simpan Alamat" : "Update Alamat"}
                     className="cursor-pointer"
                 />
             </div>

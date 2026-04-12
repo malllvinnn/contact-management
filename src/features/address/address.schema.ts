@@ -9,3 +9,7 @@ export const CreateAddressSchema = z.object({
 });
 
 export type CreateAddressPayload = z.infer<typeof CreateAddressSchema>;
+
+export const UpdateAddressSchema = CreateAddressSchema;
+
+export type UpdateAddressPayload = z.infer<typeof UpdateAddressSchema>;

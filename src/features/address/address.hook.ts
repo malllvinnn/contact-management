@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { addressService } from "./address.service";
-import type { CreateAddressPayload } from "./address.schema";
+import type { CreateAddressPayload, UpdateAddressPayload } from "./address.schema";
 import { queryClient } from "@/lib/queryClient";
 import { toast } from "sonner";
 import { errorHookResponse } from "@/lib/utils";
@@ -35,6 +35,26 @@ export const useCreateAddress = (contactId: string) => {
         onSuccess: (response) => {
             closeCreateModal();
             toast.success(response.message || "Address created successfully");
+            queryClient.invalidateQueries({ queryKey: ["contacts", contactId, "addresses"] });
+        },
+
+        onError: (error) => {
+            errorHookResponse(error);
+        },
+    });
+};
+
+export const useUpdateAddress = (contactId: string, addressId: string) => {
+
+    const { closeEditModal } = useAddressStore();
+
+    return useMutation({
+
+        mutationFn: (payload: UpdateAddressPayload) => addressService.updateAddress(contactId, addressId, payload),
+
+        onSuccess: (response) => {
+            closeEditModal();
+            toast.success(response.message || "Address updated successfully");
             queryClient.invalidateQueries({ queryKey: ["contacts", contactId, "addresses"] });
         },
 
