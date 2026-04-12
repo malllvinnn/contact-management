@@ -1,8 +1,8 @@
-import { MapPin, Pencil, Trash2 } from "lucide-react";
+import { MapPin, Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAddressStore } from "../address.store";
-import { useRemoveAddress } from "../address.hook";
+import { DeleteAddressButton } from "./DeleteAddressButton";
 import type { Address } from "../address.types";
 
 interface AddressCardProps {
@@ -14,12 +14,10 @@ interface AddressCardProps {
 export const AddressCard = ({ contactId, address, className }: AddressCardProps) => {
 
     const { openEditModal } = useAddressStore();
-    const { mutate: removeAddress, isPending } = useRemoveAddress(contactId);
 
-    const handleRemove = () => {
-        if (!window.confirm("Yakin ingin menghapus alamat ini?")) return;
-        removeAddress(address.id);
-    };
+    const addressLabel = [address.street, address.city, address.country]
+        .filter(Boolean)
+        .join(", ");
 
     return (
         <article
@@ -59,21 +57,14 @@ export const AddressCard = ({ contactId, address, className }: AddressCardProps)
                         className="cursor-pointer"
                         onClick={() => openEditModal(address)}
                         aria-label="Edit Alamat"
-                        disabled={isPending}
                     >
                         <Pencil className="size-4" aria-hidden />
                     </Button>
-                    <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="cursor-pointer"
-                        onClick={handleRemove}
-                        aria-label="Hapus Alamat"
-                        disabled={isPending}
-                    >
-                        <Trash2 className="size-4" aria-hidden />
-                    </Button>
+                    <DeleteAddressButton
+                        contactId={contactId}
+                        addressId={address.id}
+                        addressLabel={addressLabel}
+                    />
                 </div>
             </div>
         </article>
