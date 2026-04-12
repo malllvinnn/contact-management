@@ -47,7 +47,7 @@ export const AddressSection = ({ contactId, className }: AddressSectionProps) =>
             {!isLoading && !isError && addresses && addresses.length > 0 && (
                 <div className="flex flex-col gap-3 md:grid md:grid-cols-2">
                     {addresses.map((address) => (
-                        <AddressCard key={address.id} address={address} />
+                        <AddressCard key={address.id} contactId={contactId} address={address} />
                     ))}
                 </div>
             )}

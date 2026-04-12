@@ -1,17 +1,25 @@
-import { MapPin, Pencil } from "lucide-react";
+import { MapPin, Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAddressStore } from "../address.store";
+import { useRemoveAddress } from "../address.hook";
 import type { Address } from "../address.types";
 
 interface AddressCardProps {
+    contactId: string;
     address: Address;
     className?: string;
 }
 
-export const AddressCard = ({ address, className }: AddressCardProps) => {
+export const AddressCard = ({ contactId, address, className }: AddressCardProps) => {
 
     const { openEditModal } = useAddressStore();
+    const { mutate: removeAddress, isPending } = useRemoveAddress(contactId);
+
+    const handleRemove = () => {
+        if (!window.confirm("Yakin ingin menghapus alamat ini?")) return;
+        removeAddress(address.id);
+    };
 
     return (
         <article
@@ -51,8 +59,20 @@ export const AddressCard = ({ address, className }: AddressCardProps) => {
                         className="cursor-pointer"
                         onClick={() => openEditModal(address)}
                         aria-label="Edit Alamat"
+                        disabled={isPending}
                     >
                         <Pencil className="size-4" aria-hidden />
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="cursor-pointer"
+                        onClick={handleRemove}
+                        aria-label="Hapus Alamat"
+                        disabled={isPending}
+                    >
+                        <Trash2 className="size-4" aria-hidden />
                     </Button>
                 </div>
             </div>
