@@ -14,7 +14,7 @@
 
 The frontend for the Contact Management RESTful API. Built with React 19 and TypeScript, featuring a feature-based architecture, full CRUD for contacts and addresses, and a clean responsive UI with dark/light mode support.
 
-**Live Demo:** [contact-management.malfin.xyz](https://contact-management.malfin.xyz) &nbsp;|&nbsp; **API:** [api-contact-management.malfin.xyz](https://api-contact-management.malfin.xyz)
+**Live Demo:** [contact-management.malfin.xyz](https://contact-management.malfin.xyz) &nbsp;|&nbsp; **Depends on:** [contact-management-restful-api-ts](https://github.com/malllvinnn/contact-management-restful-api-ts)
 
 ## Features
 
