@@ -48,6 +48,7 @@ export const DeleteContactButton = ({
                 size="sm"
                 disabled={isPending}
                 onClick={() => setOpen(true)}
+                className="cursor-pointer"
             >
                 <span className="flex items-center gap-1">
                     <Trash2 className="size-3.5" aria-hidden />
