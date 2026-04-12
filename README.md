@@ -137,4 +137,4 @@ To deploy your own instance:
 
 ## Related
 
-- [Contact Management API](https://github.com/malllvinnn/contact-management-restful-api) — the Express.js backend this app consumes
+- [Contact Management API](https://github.com/malllvinnn/contact-management-restful-api-ts) — the Express.js backend this app consumes
