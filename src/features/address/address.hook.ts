@@ -15,6 +15,15 @@ export const useListAddresses = (contactId: string) => {
     });
 };
 
+export const useGetAddress = (contactId: string, addressId: string) => {
+
+    return useQuery({
+        queryFn: () => addressService.getAddress(contactId, addressId),
+        queryKey: ["contacts", contactId, "addresses", addressId],
+        enabled: !!contactId && !!addressId,
+    });
+};
+
 export const useCreateAddress = (contactId: string) => {
 
     const { closeCreateModal } = useAddressStore();

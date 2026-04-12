@@ -18,4 +18,11 @@ export const addressService = {
 
         return response.data;
     },
+
+    getAddress: async (contactId: string, addressId: string): Promise<ApiResponse<Address>> => {
+
+        const response = await api.get(`/contacts/${contactId}/addresses/${addressId}`);
+
+        return response.data;
+    },
 };
