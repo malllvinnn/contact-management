@@ -63,3 +63,20 @@ export const useUpdateAddress = (contactId: string, addressId: string) => {
         },
     });
 };
+
+export const useRemoveAddress = (contactId: string) => {
+
+    return useMutation({
+
+        mutationFn: (addressId: string) => addressService.removeAddress(contactId, addressId),
+
+        onSuccess: (response) => {
+            toast.success(response.message || "Address removed successfully");
+            queryClient.invalidateQueries({ queryKey: ["contacts", contactId, "addresses"] });
+        },
+
+        onError: (error) => {
+            errorHookResponse(error);
+        },
+    });
+};

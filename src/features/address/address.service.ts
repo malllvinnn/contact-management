@@ -32,4 +32,11 @@ export const addressService = {
 
         return response.data;
     },
+
+    removeAddress: async (contactId: string, addressId: string): Promise<ApiResponse<string>> => {
+
+        const response = await api.delete(`/contacts/${contactId}/addresses/${addressId}`);
+
+        return response.data;
+    },
 };
