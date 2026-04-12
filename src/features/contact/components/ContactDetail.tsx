@@ -1,0 +1,144 @@
+import { InputField } from "@/components/form/InputField";
+import { cn } from "@/lib/utils";
+import { User } from "lucide-react";
+import { useNavigate, useParams } from "react-router";
+import { useGetContact } from "../contact.hook";
+import { ContactContainer } from "./ContactContainer";
+import { ContactDetailFieldSkeleton } from "./ContactDetailFieldSkeleton";
+import { ContactDetailError } from "./ContactDetailError";
+import { DeleteContactButton } from "./DeleteContactButton";
+import { EditContactButton } from "./EditContactButton";
+import { AddressSection } from "@/features/address/components/AddressSection";
+
+export const ContactDetail = () => {
+
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const { data, isLoading, isError } = useGetContact(id ?? "");
+    const contact = data?.data;
+
+    if (!id) {
+        return (
+            <ContactContainer title="Contact" icon={User} backButton>
+                <div className="page-card md:max-w-none">
+                    <ContactDetailError message="Contact not found" />
+                </div>
+            </ContactContainer>
+        );
+    }
+
+    if (isLoading) {
+        return (
+            <ContactContainer title="Contact Detail" icon={User} backButton>
+                <div
+                    className="page-card md:max-w-none"
+                    aria-busy="true"
+                    aria-label="Memuat detail kontak"
+                >
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <ContactDetailFieldSkeleton />
+                        <ContactDetailFieldSkeleton />
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                        <ContactDetailFieldSkeleton />
+                        <ContactDetailFieldSkeleton />
+                    </div>
+                </div>
+            </ContactContainer>
+        );
+    }
+
+    if (isError) {
+        return (
+            <ContactContainer title="Contact" icon={User} backButton>
+                <div className="page-card md:max-w-none">
+                    <ContactDetailError message="Contact not found" />
+                </div>
+            </ContactContainer>
+        );
+    }
+
+    if (!contact) {
+        return (
+            <ContactContainer title="Contact" icon={User} backButton>
+                <div className="page-card md:max-w-none">
+                    <ContactDetailError message="Contact not found" />
+                </div>
+            </ContactContainer>
+        );
+    }
+
+    const readOnlyInputClass = cn(
+        "h-9 cursor-default bg-muted/40 text-sm md:h-10 md:text-base"
+    );
+
+    const displayName =
+        [contact.first_name, contact.last_name].filter(Boolean).join(" ").trim() ||
+        "—";
+
+    return (
+        <ContactContainer title="Contact Detail" icon={User} backButton>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+                <div className="page-card md:max-w-none lg:flex-1">
+                    <div className="flex flex-wrap justify-end gap-2">
+                        <EditContactButton contact={contact} />
+                        <DeleteContactButton
+                            contactId={contact.id}
+                            contactName={displayName}
+                            afterDelete={() => navigate("/dashboard")}
+                        />
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <InputField
+                            id="contact-first-name"
+                            name="first_name"
+                            label="First Name"
+                            readOnly
+                            tabIndex={-1}
+                            value={contact.first_name || "—"}
+                            className={readOnlyInputClass}
+                        />
+                        <InputField
+                            id="contact-last-name"
+                            name="last_name"
+                            label="Last Name"
+                            readOnly
+                            tabIndex={-1}
+                            value={contact.last_name || "—"}
+                            className={readOnlyInputClass}
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4">
+                        <InputField
+                            id="contact-email"
+                            name="email"
+                            label="Email"
+                            readOnly
+                            tabIndex={-1}
+                            type="email"
+                            autoComplete="off"
+                            value={contact.email || "—"}
+                            className={readOnlyInputClass}
+                        />
+                        <InputField
+                            id="contact-phone"
+                            name="phone"
+                            label="Phone"
+                            readOnly
+                            tabIndex={-1}
+                            type="tel"
+                            autoComplete="off"
+                            value={contact.phone || "—"}
+                            className={readOnlyInputClass}
+                        />
+                    </div>
+                </div>
+                <AddressSection
+                    contactId={contact.id}
+                    className="md:max-w-none lg:flex-1"
+                />
+            </div>
+        </ContactContainer>
+    );
+};
