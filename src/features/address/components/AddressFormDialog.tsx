@@ -16,13 +16,24 @@ interface AddressFormDialogProps {
 
 export const AddressFormDialog = ({ contactId }: AddressFormDialogProps) => {
 
-    const { isOpenCreateModal, openCreateModal, closeCreateModal } = useAddressStore();
+    const {
+        isOpenCreateModal, openCreateModal, closeCreateModal,
+        isOpenEditModal, closeEditModal, selectedAddress,
+    } = useAddressStore();
+
+    const isOpen = isOpenCreateModal || isOpenEditModal;
+
+    const handleOpenChange = (open: boolean) => {
+        if (open) {
+            openCreateModal();
+            return;
+        }
+        if (isOpenEditModal) closeEditModal();
+        else closeCreateModal();
+    };
 
     return (
-        <Dialog
-            open={isOpenCreateModal}
-            onOpenChange={(open) => (open ? openCreateModal() : closeCreateModal())}
-        >
+        <Dialog open={isOpen} onOpenChange={handleOpenChange}>
             <DialogTrigger
                 render={
                     <Button
@@ -38,9 +49,20 @@ export const AddressFormDialog = ({ contactId }: AddressFormDialogProps) => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-lg overflow-y-auto max-h-[90vh]">
                 <DialogHeader>
-                    <DialogTitle>Tambah Alamat</DialogTitle>
+                    <DialogTitle>
+                        {isOpenEditModal ? "Edit Alamat" : "Tambah Alamat"}
+                    </DialogTitle>
                 </DialogHeader>
-                <AddressForm contactId={contactId} />
+                {isOpenEditModal && selectedAddress ? (
+                    <AddressForm
+                        mode="edit"
+                        contactId={contactId}
+                        addressId={selectedAddress.id}
+                        defaultValues={selectedAddress}
+                    />
+                ) : (
+                    <AddressForm contactId={contactId} />
+                )}
             </DialogContent>
         </Dialog>
     );
