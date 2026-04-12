@@ -1,6 +1,6 @@
 import { api } from "@/lib/api";
 import type { ApiResponse } from "@/types/api";
-import type { CreateAddressPayload } from "./address.schema";
+import type { CreateAddressPayload, UpdateAddressPayload } from "./address.schema";
 import type { Address } from "./address.types";
 
 export const addressService = {
@@ -22,6 +22,13 @@ export const addressService = {
     getAddress: async (contactId: string, addressId: string): Promise<ApiResponse<Address>> => {
 
         const response = await api.get(`/contacts/${contactId}/addresses/${addressId}`);
+
+        return response.data;
+    },
+
+    updateAddress: async (contactId: string, addressId: string, payload: UpdateAddressPayload): Promise<ApiResponse<Address>> => {
+
+        const response = await api.put(`/contacts/${contactId}/addresses/${addressId}`, payload);
 
         return response.data;
     },

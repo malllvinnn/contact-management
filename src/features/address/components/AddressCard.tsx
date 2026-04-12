@@ -1,5 +1,7 @@
-import { MapPin } from "lucide-react";
+import { MapPin, Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useAddressStore } from "../address.store";
 import type { Address } from "../address.types";
 
 interface AddressCardProps {
@@ -8,6 +10,9 @@ interface AddressCardProps {
 }
 
 export const AddressCard = ({ address, className }: AddressCardProps) => {
+
+    const { openEditModal } = useAddressStore();
+
     return (
         <article
             className={cn(
@@ -38,8 +43,18 @@ export const AddressCard = ({ address, className }: AddressCardProps) => {
                     </div>
                 </div>
 
-                {/* Placeholder untuk action buttons (Edit, Hapus) — diisi di issue berikutnya */}
-                <div className="flex shrink-0 gap-1" />
+                <div className="flex shrink-0 gap-1">
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="cursor-pointer gap-1.5"
+                        onClick={() => openEditModal(address)}
+                    >
+                        <Pencil className="size-3.5" aria-hidden />
+                        Edit
+                    </Button>
+                </div>
             </div>
         </article>
     );

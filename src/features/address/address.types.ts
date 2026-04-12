@@ -11,4 +11,9 @@ export type AddressState = {
     isOpenCreateModal: boolean;
     openCreateModal: () => void;
     closeCreateModal: () => void;
+
+    isOpenEditModal: boolean;
+    selectedAddress: Address | null;
+    openEditModal: (address: Address) => void;
+    closeEditModal: () => void;
 };
