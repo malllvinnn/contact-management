@@ -47,12 +47,12 @@ export const AddressCard = ({ address, className }: AddressCardProps) => {
                     <Button
                         type="button"
                         variant="ghost"
-                        size="sm"
-                        className="cursor-pointer gap-1.5"
+                        size="icon"
+                        className="cursor-pointer"
                         onClick={() => openEditModal(address)}
+                        aria-label="Edit Alamat"
                     >
-                        <Pencil className="size-3.5" aria-hidden />
-                        Edit
+                        <Pencil className="size-4" aria-hidden />
                     </Button>
                 </div>
             </div>

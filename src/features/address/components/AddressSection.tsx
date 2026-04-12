@@ -6,7 +6,6 @@ import { AddressCard } from "./AddressCard";
 import { AddressCardSkeleton } from "./AddressCardSkeleton";
 import { AddressEmptyState } from "./AddressEmptyState";
 import { AddressFormDialog } from "./AddressFormDialog";
-import { AddressForm } from "./AddressForm";
 
 interface AddressSectionProps {
     contactId: string;
@@ -18,7 +17,7 @@ export const AddressSection = ({ contactId, className }: AddressSectionProps) =>
     const { data, isLoading, isError } = useListAddresses(contactId);
     const addresses = data?.data;
 
-    const { openCreateModal, isOpenEditModal, selectedAddress } = useAddressStore();
+    const { openCreateModal } = useAddressStore();
 
     return (
         <div className={cn("page-card", className)}>
@@ -29,15 +28,6 @@ export const AddressSection = ({ contactId, className }: AddressSectionProps) =>
                 </div>
                 <AddressFormDialog contactId={contactId} />
             </div>
-
-            {isOpenEditModal && selectedAddress && (
-                <AddressForm
-                    mode="edit"
-                    contactId={contactId}
-                    addressId={selectedAddress.id}
-                    defaultValues={selectedAddress}
-                />
-            )}
 
             {isLoading && (
                 <div className="flex flex-col gap-3">
