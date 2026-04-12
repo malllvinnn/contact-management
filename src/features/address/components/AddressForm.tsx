@@ -4,9 +4,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAddressSchema, type CreateAddressPayload } from "../address.schema";
 import { useCreateAddress } from "../address.hook";
-import { useAddressStore } from "../address.store";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 
 const emptyValues: CreateAddressPayload = {
     street: "",
@@ -22,7 +19,6 @@ interface AddressFormProps {
 
 export const AddressForm = ({ contactId }: AddressFormProps) => {
 
-    const { closeCreateModal } = useAddressStore();
     const { mutate, isPending } = useCreateAddress(contactId);
 
     const {
@@ -44,23 +40,8 @@ export const AddressForm = ({ contactId }: AddressFormProps) => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="rounded-xl border border-border bg-card p-4 space-y-4"
+            className="space-y-4"
         >
-            <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold">Tambah Alamat</p>
-                <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="size-7"
-                    disabled={isPending}
-                    onClick={closeCreateModal}
-                >
-                    <X className="size-4" aria-hidden />
-                    <span className="sr-only">Tutup form</span>
-                </Button>
-            </div>
-
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <InputField
                     label="Street"
