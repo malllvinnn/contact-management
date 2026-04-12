@@ -9,8 +9,8 @@ import { useAddressStore } from "./address.store";
 export const useListAddresses = (contactId: string) => {
 
     return useQuery({
-        queryKey: ["contacts", contactId, "addresses"],
         queryFn: () => addressService.listAddresses(contactId),
+        queryKey: ["contacts", contactId, "addresses"],
         enabled: !!contactId,
     });
 };

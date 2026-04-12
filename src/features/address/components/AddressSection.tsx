@@ -1,12 +1,11 @@
-import { MapPin, Plus } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { useListAddresses } from "../address.hook";
 import { useAddressStore } from "../address.store";
 import { AddressCard } from "./AddressCard";
 import { AddressCardSkeleton } from "./AddressCardSkeleton";
 import { AddressEmptyState } from "./AddressEmptyState";
-import { AddressForm } from "./AddressForm";
+import { AddressFormDialog } from "./AddressFormDialog";
 
 interface AddressSectionProps {
     contactId: string;
@@ -18,7 +17,7 @@ export const AddressSection = ({ contactId, className }: AddressSectionProps) =>
     const { data, isLoading, isError } = useListAddresses(contactId);
     const addresses = data?.data;
 
-    const { isOpenCreateModal, openCreateModal } = useAddressStore();
+    const { openCreateModal } = useAddressStore();
 
     return (
         <div className={cn("page-card", className)}>
@@ -27,19 +26,8 @@ export const AddressSection = ({ contactId, className }: AddressSectionProps) =>
                     <MapPin className="size-4 text-muted-foreground" aria-hidden />
                     <h2 className="text-base font-semibold md:text-lg">Alamat</h2>
                 </div>
-                <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="cursor-pointer gap-1.5"
-                    onClick={openCreateModal}
-                >
-                    <Plus className="size-4" aria-hidden />
-                    Tambah Alamat
-                </Button>
+                <AddressFormDialog contactId={contactId} />
             </div>
-
-            {isOpenCreateModal && <AddressForm contactId={contactId} />}
 
             {isLoading && (
                 <div className="flex flex-col gap-3">
